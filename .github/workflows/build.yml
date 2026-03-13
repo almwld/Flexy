@@ -3,51 +3,23 @@ name: Build Flex Yemen
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
       
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-          cache: true
-      
-      - name: Create fresh Android project
+      - name: Build optimized APK
         run: |
-          # إنشاء مشروع مؤقت للحصول على ملفات Android نظيفة
-          mkdir -p /tmp/fresh_project
-          cd /tmp/fresh_project
-          flutter create --org com.flexyemen --project-name flexy_temp .
-          
-          # العودة للمشروع الأصلي ونسخ الملفات النظيفة
-          cd ${{ github.workspace }}
-          rm -rf android ios
-          cp -r /tmp/fresh_project/android .
-          cp -r /tmp/fresh_project/ios .
-          
-          # تنظيف الملفات المؤقتة
-          rm -rf /tmp/fresh_project
+          flutter clean
+          flutter pub get
+          flutter build apk --release --split-per-abi --obfuscate --split-debug-info=debug-info
       
-      - name: Get dependencies
-        run: flutter pub get
-      
-      - name: Build APK
-        run: flutter build apk --release
-      
-      - name: Upload APK
+      - name: Upload APKs
         uses: actions/upload-artifact@v4
         with:
-          name: flex-yemen-app
-          path: build/app/outputs/flutter-apk/app-release.apk
-          retention-days: 30
+          name: optimized-apks
+          path: |
+            build/app/outputs/flutter-apk/app-*-release.apk
