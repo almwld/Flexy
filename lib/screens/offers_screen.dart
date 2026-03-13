@@ -3,62 +3,48 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../theme/app_theme.dart';
 import 'ad_detail_screen.dart';
 
-class OffersScreen extends StatelessWidget {
+class OffersScreen extends StatefulWidget {
   const OffersScreen({super.key});
 
-  // بيانات وهمية للعروض
-  final List<Map<String, dynamic>> _offers = const [
-    {
-      'id': 'offer1',
-      'title': 'خصم 50% على أول إعلان',
-      'description': 'للتجار الجدد، انشر إعلانك الأول بنصف السعر',
-      'discount': '50%',
-      'validUntil': 'ينتهي 30 مارس',
-      'code': 'WELCOME50',
-      'image': 'https://images.unsplash.com/photo-1534723452862-4c874018d66d?w=400',
-      'backgroundColor': Colors.purple,
-    },
-    {
-      'id': 'offer2',
-      'title': 'شحن مجاني للمحفظة',
-      'description': 'عند شحن 10,000 ريال أو أكثر',
-      'discount': 'مجاني',
-      'validUntil': 'عرض محدود',
-      'code': 'FREECHARGE',
-      'image': 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400',
-      'backgroundColor': Colors.blue,
-    },
-    {
-      'id': 'offer3',
-      'title': 'بطاقة أمازون بقيمة 10$',
-      'description': 'عند شرائك 5 إعلانات مميزة',
-      'discount': '10$',
-      'validUntil': 'أيام محدودة',
-      'code': 'AMAZON10',
-      'image': 'https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=400',
-      'backgroundColor': Colors.orange,
-    },
-    {
-      'id': 'offer4',
-      'title': 'خصم 30% على باقات الترويج',
-      'description': 'لأصحاب المتاجر، عزز مبيعاتك',
-      'discount': '30%',
-      'validUntil': 'حتى نفاد الكمية',
-      'code': 'PROMO30',
-      'image': 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400',
-      'backgroundColor': Colors.green,
-    },
-    {
-      'id': 'offer5',
-      'title': 'هدية اشتراك VIP',
-      'description': 'اشترك لمدة شهر واحصل على شهر مجاني',
-      'discount': 'شهر مجاني',
-      'validUntil': 'عرض خاص',
-      'code': 'VIPFREE',
-      'image': 'https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=400',
-      'backgroundColor': Colors.red,
-    },
+  @override
+  State<OffersScreen> createState() => _OffersScreenState();
+}
+
+class _OffersScreenState extends State<OffersScreen> {
+  // أنواع العروض
+  final List<Map<String, dynamic>> _offerCategories = [
+    {'name': 'خصومات', 'icon': Icons.local_offer, 'color': Colors.red},
+    {'name': 'صفقات اليوم', 'icon': Icons.today, 'color': Colors.orange},
+    {'name': 'وصل حديثاً', 'icon': Icons.fiber_new, 'color': Colors.green},
+    {'name': 'الأكثر مبيعاً', 'icon': Icons.trending_up, 'color': Colors.blue},
+    {'name': 'محدودة الوقت', 'icon': Icons.timer, 'color': Colors.purple},
   ];
+
+  // بيانات العروض الوهمية
+  final List<Map<String, dynamic>> _offers = List.generate(15, (index) {
+    double discount = [10, 15, 20, 25, 30, 40, 50][index % 7];
+    double originalPrice = (5000 + index * 2000).toDouble();
+    double discountedPrice = originalPrice * (1 - discount / 100);
+    return {
+      'id': 'offer_$index',
+      'title': 'عرض ${index + 1} - ${index % 2 == 0 ? 'منتج' : 'خدمة'} مميزة',
+      'description': 'وصف مختصر للعرض الرائع الذي لا يفوت',
+      'originalPrice': originalPrice,
+      'discountedPrice': discountedPrice,
+      'discount': discount,
+      'category': _offerCategories[index % 5]['name'],
+      'image': 'https://images.unsplash.com/photo-${1500000000 + index}?w=400',
+      'timeLeft': '${23 - index % 24}:${59 - index % 60}',
+      'soldCount': 50 + index * 10,
+    };
+  });
+
+  String _selectedCategory = 'الكل';
+
+  List<Map<String, dynamic>> get _filteredOffers {
+    if (_selectedCategory == 'الكل') return _offers;
+    return _offers.where((o) => o['category'] == _selectedCategory).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,157 +52,259 @@ class OffersScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('العروض'),
+        title: const Text('العروض والتخفيضات'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {},
+          ),
+        ],
       ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(16),
-        itemCount: _offers.length,
-        itemBuilder: (context, index) {
-          final offer = _offers[index];
-          return _buildOfferCard(offer, index, isDark);
-        },
+      body: Column(
+        children: [
+          // شريط الفئات
+          Container(
+            height: 70,
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: _offerCategories.length + 1,
+              itemBuilder: (context, index) {
+                if (index == 0) {
+                  return _buildCategoryChip('الكل', Icons.all_inclusive, Colors.grey, index == 0);
+                }
+                final cat = _offerCategories[index - 1];
+                return _buildCategoryChip(cat['name'], cat['icon'], cat['color'], _selectedCategory == cat['name']);
+              },
+            ),
+          ),
+          // شريط العد التنازلي الرئيسي (اختياري)
+          if (_selectedCategory == 'الكل' || _selectedCategory == 'محدودة الوقت')
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Colors.red, Colors.orange],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Row(
+                children: [
+                  const Icon(Icons.timer, color: Colors.white, size: 30),
+                  const SizedBox(width: 12),
+                  const Expanded(
+                    child: Text(
+                      'عروض محدودة الوقت تنتهي قريباً',
+                      style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: const Text(
+                      '23:59',
+                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          const SizedBox(height: 8),
+
+          // قائمة العروض
+          Expanded(
+            child: _filteredOffers.isEmpty
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.local_offer_outlined, size: 80, color: Colors.grey[400]),
+                        const SizedBox(height: 16),
+                        const Text('لا توجد عروض', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                  )
+                : ListView.builder(
+                    padding: const EdgeInsets.all(16),
+                    itemCount: _filteredOffers.length,
+                    itemBuilder: (context, index) {
+                      final offer = _filteredOffers[index];
+                      return _buildOfferCard(offer, index, isDark);
+                    },
+                  ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCategoryChip(String label, IconData icon, Color color, bool isSelected) {
+    return GestureDetector(
+      onTap: () => setState(() => _selectedCategory = label),
+      child: Container(
+        margin: const EdgeInsets.only(right: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: isSelected ? AppTheme.goldColor : (Theme.of(context).brightness == Brightness.dark ? AppTheme.darkCard : AppTheme.lightCard),
+          borderRadius: BorderRadius.circular(30),
+          border: Border.all(
+            color: isSelected ? AppTheme.goldColor : Colors.grey[400]!,
+          ),
+        ),
+        child: Row(
+          children: [
+            Icon(icon, size: 18, color: isSelected ? Colors.black : color),
+            const SizedBox(width: 4),
+            Text(
+              label,
+              style: TextStyle(
+                color: isSelected ? Colors.black : null,
+                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildOfferCard(Map<String, dynamic> offer, int index, bool isDark) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      height: 140,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            offer['backgroundColor'],
-            offer['backgroundColor'].withOpacity(0.7),
-          ],
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (_) => AdDetailScreen(ad: offer)),
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 16),
+        decoration: BoxDecoration(
+          color: isDark ? AppTheme.darkCard : AppTheme.lightCard,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: Colors.red.withOpacity(0.3),
+          ),
         ),
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: offer['backgroundColor'].withOpacity(0.3),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Stack(
-        children: [
-          // صورة خلفية زخرفية
-          Positioned(
-            right: -20,
-            bottom: -20,
-            child: Icon(
-              Icons.local_offer,
-              size: 120,
-              color: Colors.white.withOpacity(0.2),
+        child: Stack(
+          children: [
+            // شارة الخصم
+            Positioned(
+              top: 0,
+              left: 0,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: const BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(16),
+                    bottomRight: Radius.circular(16),
+                  ),
+                ),
+                child: Text(
+                  '${offer['discount']}% خصم',
+                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+              ),
             ),
-          ),
-          // المحتوى
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              children: [
-                // نص العرض
-                Expanded(
-                  flex: 2,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        offer['title'],
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+            // المحتوى
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  // الصورة
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.network(
+                      offer['image'],
+                      width: 100,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  // التفاصيل
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          offer['title'],
+                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        offer['description'],
-                        style: TextStyle(
-                          color: Colors.white.withOpacity(0.9),
-                          fontSize: 12,
+                        const SizedBox(height: 4),
+                        Text(
+                          offer['description'],
+                          style: TextStyle(fontSize: 13, color: Colors.grey[500]),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 8),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
+                        const SizedBox(height: 8),
+                        // السعر
+                        Row(
                           children: [
-                            const Icon(Icons.access_time, size: 12, color: Colors.white),
-                            const SizedBox(width: 4),
                             Text(
-                              offer['validUntil'],
-                              style: const TextStyle(color: Colors.white, fontSize: 10),
+                              '${offer['discountedPrice'].toStringAsFixed(0)} ر.ي',
+                              style: const TextStyle(
+                                color: AppTheme.goldColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              '${offer['originalPrice'].toStringAsFixed(0)} ر.ي',
+                              style: const TextStyle(
+                                decoration: TextDecoration.lineThrough,
+                                color: Colors.grey,
+                                fontSize: 14,
+                              ),
                             ),
                           ],
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                // كود الخصم وزر النسخ
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Text(
-                          offer['code'],
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      ElevatedButton(
-                        onPressed: () {
-                          // نسخ الكود
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('تم نسخ الكود ${offer['code']}'),
-                              backgroundColor: AppTheme.success,
+                        const SizedBox(height: 8),
+                        // الوقت والمبيعات
+                        Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                              decoration: BoxDecoration(
+                                color: Colors.orange.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Row(
+                                children: [
+                                  const Icon(Icons.timer, size: 14, color: Colors.orange),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    offer['timeLeft'],
+                                    style: const TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
                             ),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          foregroundColor: Colors.black,
-                          minimumSize: const Size(80, 30),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
+                            const SizedBox(width: 8),
+                            Text(
+                              '${offer['soldCount']} مباع',
+                              style: TextStyle(color: Colors.grey[500]),
+                            ),
+                          ],
                         ),
-                        child: const Text('نسخ'),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ).animate().fadeIn(delay: (index * 100).ms).slideX(begin: 0.2, end: 0);
+    ).animate().fadeIn(delay: (index * 50).ms).slideX(begin: 0.2, end: 0);
   }
 }
