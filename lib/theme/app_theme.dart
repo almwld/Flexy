@@ -26,7 +26,7 @@ class AppTheme {
         foregroundColor: Colors.black87,
         elevation: 0,
       ),
-      cardTheme: const CardTheme(
+      cardTheme: const CardThemeData(
         color: lightCard,
         elevation: 2,
       ),
@@ -44,7 +44,7 @@ class AppTheme {
         foregroundColor: Colors.white,
         elevation: 0,
       ),
-      cardTheme: const CardTheme(
+      cardTheme: const CardThemeData(
         color: darkCard,
         elevation: 2,
       ),

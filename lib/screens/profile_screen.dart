@@ -1,4 +1,3 @@
-import '../theme/theme_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../theme/app_theme.dart';
@@ -40,8 +39,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (_) => const LoginScreen()),
                 );
-              } else {
-                // تسجيل خروج المستخدم المسجل
               }
             },
           ),
@@ -49,7 +46,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
       body: CustomScrollView(
         slivers: [
-          // معلومات المستخدم
           SliverToBoxAdapter(
             child: Container(
               padding: const EdgeInsets.all(20),
@@ -94,8 +90,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
           ),
-          
-          // قائمة الخيارات (نفسها للضيف والمستخدم)
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {

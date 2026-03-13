@@ -4,24 +4,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'theme/app_theme.dart';
+import 'theme/theme_manager.dart';
 import 'screens/splash_screen.dart';
-
-// تعريف ThemeManager مرة واحدة فقط
-#import 'theme/theme_manager.dart'
-  bool _isDarkMode = true;
-  
-  bool get isDarkMode => _isDarkMode;
-  
-  void toggleTheme() {
-    _isDarkMode = !_isDarkMode;
-    notifyListeners();
-  }
-  
-  void setDarkMode(bool value) {
-    _isDarkMode = value;
-    notifyListeners();
-  }
-}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
