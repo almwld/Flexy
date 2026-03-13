@@ -7,19 +7,34 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    
     steps:
       - uses: actions/checkout@v4
-      - uses: subosito/flutter-action@v2
       
-      - name: Build optimized APK
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      
+      - name: Create fresh Android project
         run: |
-          flutter clean
-          flutter pub get
-          flutter build apk --release --split-per-abi --obfuscate --split-debug-info=debug-info
+          mkdir -p /tmp/fresh_project
+          cd /tmp/fresh_project
+          flutter create --org com.flexyemen --project-name flexy_temp .
+          cd ${{ github.workspace }}
+          rm -rf android ios
+          cp -r /tmp/fresh_project/android .
+          cp -r /tmp/fresh_project/ios .
+          rm -rf /tmp/fresh_project
       
-      - name: Upload APKs
+      - name: Get packages
+        run: flutter pub get
+      
+      - name: Build APK
+        run: flutter build apk --release
+      
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: optimized-apks
-          path: |
-            build/app/outputs/flutter-apk/app-*-release.apk
+          name: flex-yemen-app
+          path: build/app/outputs/flutter-apk/app-release.apk
