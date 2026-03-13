@@ -740,3 +740,11 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
     );
   }
 }
+
+  void _loginAsGuest() {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (_) => const MainNavigation(isGuest: true),
+      ),
+    );
+  }
