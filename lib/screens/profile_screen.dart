@@ -39,6 +39,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (_) => const LoginScreen()),
                 );
+              } else {
+                // تسجيل خروج المستخدم المسجل
               }
             },
           ),
@@ -69,9 +71,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       children: [
                         Text(
                           widget.isGuest ? 'ضيف' : 'أحمد محمد',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
+                            color: isDark ? AppTheme.darkText : AppTheme.lightText,
                           ),
                         ),
                         const SizedBox(height: 4),
@@ -98,13 +101,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   leading: Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: item['color'].withOpacity(0.2),
+                      color: (item['color'] as Color).withOpacity(0.2),
                       shape: BoxShape.circle,
                     ),
                     child: Icon(item['icon'], color: item['color']),
                   ),
-                  title: Text(item['title']),
-                  trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                  title: Text(
+                    item['title'],
+                    style: TextStyle(
+                      color: isDark ? AppTheme.darkText : AppTheme.lightText,
+                    ),
+                  ),
+                  trailing: Icon(
+                    Icons.arrow_forward_ios,
+                    size: 16,
+                    color: isDark ? Colors.grey[600] : Colors.grey[400],
+                  ),
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(builder: (_) => item['screen']),
