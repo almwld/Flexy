@@ -123,7 +123,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     'أدخل بياناتك لإنشاء حساب جديد',
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.white.withValues(alpha: 0.7),
+                      color: Colors.white.withOpacity( 0.7),
                       fontFamily: 'Changa',
                     ),
                     textAlign: TextAlign.center,
@@ -135,7 +135,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Container(
                     padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.1),
+                      color: Colors.white.withOpacity( 0.1),
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Row(
@@ -243,7 +243,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         child: Text(
                           'أوافق على الشروط والأحكام وسياسة الخصوصية',
                           style: TextStyle(
-                            color: Colors.white.withValues(alpha: 0.8),
+                            color: Colors.white.withOpacity( 0.8),
                             fontSize: 12,
                             fontFamily: 'Changa',
                           ),
@@ -288,7 +288,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Text(
                         'لديك حساب بالفعل؟',
                         style: TextStyle(
-                          color: Colors.white.withValues(alpha: 0.7),
+                          color: Colors.white.withOpacity( 0.7),
                           fontFamily: 'Changa',
                         ),
                       ),
@@ -339,14 +339,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
           children: [
             Icon(
               icon,
-              color: isSelected ? Colors.black : Colors.white.withValues(alpha: 0.7),
+              color: isSelected ? Colors.black : Colors.white.withOpacity( 0.7),
               size: 24,
             ),
             const SizedBox(height: 4),
             Text(
               label,
               style: TextStyle(
-                color: isSelected ? Colors.black : Colors.white.withValues(alpha: 0.7),
+                color: isSelected ? Colors.black : Colors.white.withOpacity( 0.7),
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                 fontSize: 12,
                 fontFamily: 'Changa',
@@ -367,10 +367,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.1),
+        color: Colors.white.withOpacity( 0.1),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: Colors.white.withValues(alpha: 0.2),
+          color: Colors.white.withOpacity( 0.2),
         ),
       ),
       child: TextFormField(
@@ -384,7 +384,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         decoration: InputDecoration(
           hintText: hint,
           hintStyle: TextStyle(
-            color: Colors.white.withValues(alpha: 0.5),
+            color: Colors.white.withOpacity( 0.5),
             fontFamily: 'Changa',
           ),
           prefixIcon: Icon(icon, color: AppTheme.goldColor),
@@ -405,10 +405,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.1),
+        color: Colors.white.withOpacity( 0.1),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: Colors.white.withValues(alpha: 0.2),
+          color: Colors.white.withOpacity( 0.2),
         ),
       ),
       child: TextFormField(
@@ -422,14 +422,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
         decoration: InputDecoration(
           hintText: hint,
           hintStyle: TextStyle(
-            color: Colors.white.withValues(alpha: 0.5),
+            color: Colors.white.withOpacity( 0.5),
             fontFamily: 'Changa',
           ),
           prefixIcon: const Icon(Icons.lock, color: AppTheme.goldColor),
           suffixIcon: IconButton(
             icon: Icon(
               isVisible ? Icons.visibility_off : Icons.visibility,
-              color: Colors.white.withValues(alpha: 0.5),
+              color: Colors.white.withOpacity( 0.5),
             ),
             onPressed: onToggle,
           ),

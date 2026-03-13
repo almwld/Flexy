@@ -138,7 +138,7 @@ class _ChatScreenState extends State<ChatScreen> {
         children: [
           CircleAvatar(
             radius: 28,
-            backgroundColor: AppTheme.goldColor.withValues(alpha: 0.2),
+            backgroundColor: AppTheme.goldColor.withOpacity( 0.2),
             child: Text(
               chat['avatar'],
               style: const TextStyle(

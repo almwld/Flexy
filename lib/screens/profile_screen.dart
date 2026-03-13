@@ -174,7 +174,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: AppTheme.goldPrimary.withValues(alpha: 0.3),
+                    color: AppTheme.goldPrimary.withOpacity( 0.3),
                     blurRadius: 20,
                     spreadRadius: 5,
                   ),
@@ -204,10 +204,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
               decoration: BoxDecoration(
-                color: AppTheme.goldPrimary.withValues(alpha: 0.2),
+                color: AppTheme.goldPrimary.withOpacity( 0.2),
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
-                  color: AppTheme.goldPrimary.withValues(alpha: 0.5),
+                  color: AppTheme.goldPrimary.withOpacity( 0.5),
                 ),
               ),
               child: Text(
@@ -227,7 +227,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 '+967 777 123 456',
                 style: TextStyle(
                   fontSize: 14,
-                  color: Colors.white.withValues(alpha: 0.7),
+                  color: Colors.white.withOpacity( 0.7),
                 ),
               ),
           ],
@@ -245,7 +245,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.1),
+            color: Colors.black.withOpacity( 0.1),
             blurRadius: 10,
             offset: const Offset(0, 5),
           ),
@@ -282,7 +282,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           label,
           style: TextStyle(
             fontSize: 12,
-            color: Colors.white.withValues(alpha: 0.7),
+            color: Colors.white.withOpacity( 0.7),
           ),
         ),
       ],
@@ -293,7 +293,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Container(
       width: 1,
       height: 50,
-      color: Colors.grey.withValues(alpha: 0.3),
+      color: Colors.grey.withOpacity( 0.3),
     );
   }
 
@@ -321,7 +321,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           width: 48,
           height: 48,
           decoration: BoxDecoration(
-            color: (item['color'] as Color).withValues(alpha: 0.2),
+            color: (item['color'] as Color).withOpacity( 0.2),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Icon(
@@ -414,12 +414,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppTheme.error.withValues(alpha: 0.2),
+          backgroundColor: AppTheme.error.withOpacity( 0.2),
           foregroundColor: AppTheme.error,
           elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
-            side: BorderSide(color: AppTheme.error.withValues(alpha: 0.5)),
+            side: BorderSide(color: AppTheme.error.withOpacity( 0.5)),
           ),
         ),
       ),

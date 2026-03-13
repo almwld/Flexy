@@ -95,7 +95,7 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   BoxShadow(
-                    color: AppTheme.goldPrimary.withValues(alpha: 0.3),
+                    color: AppTheme.goldPrimary.withOpacity( 0.3),
                     blurRadius: 20,
                     offset: const Offset(0, 10),
                   ),
@@ -150,7 +150,7 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
                       margin: const EdgeInsets.only(left: 8),
                       decoration: BoxDecoration(
                         color: isSelected
-                            ? (service['color'] as Color).withValues(alpha: 0.3)
+                            ? (service['color'] as Color).withOpacity( 0.3)
                             : (isDark ? AppTheme.darkCard : AppTheme.lightCard),
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(

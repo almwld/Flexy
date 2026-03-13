@@ -139,7 +139,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                 Container(
                   width: 1,
                   height: 40,
-                  color: Colors.black.withValues(alpha: 0.2),
+                  color: Colors.black.withOpacity( 0.2),
                 ),
                 _buildBalanceItem('السحوبات', '-42,700', Colors.red),
               ],
@@ -209,7 +209,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
         Text(
           label,
           style: TextStyle(
-            color: Colors.black.withValues(alpha: 0.7),
+            color: Colors.black.withOpacity( 0.7),
             fontSize: 12,
           ),
         ),
@@ -265,7 +265,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
           width: 48,
           height: 48,
           decoration: BoxDecoration(
-            color: color.withValues(alpha: 0.2),
+            color: color.withOpacity( 0.2),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Icon(

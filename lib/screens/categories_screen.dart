@@ -139,11 +139,11 @@ class CategoriesScreen extends StatelessWidget {
           color: isDark ? AppTheme.darkCard : AppTheme.lightCard,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: color.withValues(alpha: 0.3),
+            color: color.withOpacity( 0.3),
           ),
           boxShadow: [
             BoxShadow(
-              color: color.withValues(alpha: 0.1),
+              color: color.withOpacity( 0.1),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),
@@ -156,7 +156,7 @@ class CategoriesScreen extends StatelessWidget {
               width: 70,
               height: 70,
               decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.2),
+                color: color.withOpacity( 0.2),
                 shape: BoxShape.circle,
               ),
               child: Icon(
@@ -229,7 +229,7 @@ class CategoriesScreen extends StatelessWidget {
                     width: 50,
                     height: 50,
                     decoration: BoxDecoration(
-                      color: color.withValues(alpha: 0.2),
+                      color: color.withOpacity( 0.2),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: Icon(
@@ -273,7 +273,7 @@ class CategoriesScreen extends StatelessWidget {
                       width: 40,
                       height: 40,
                       decoration: BoxDecoration(
-                        color: color.withValues(alpha: 0.1),
+                        color: color.withOpacity( 0.1),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Icon(

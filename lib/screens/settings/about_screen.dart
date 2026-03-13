@@ -27,7 +27,7 @@ class AboutScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30),
                 boxShadow: [
                   BoxShadow(
-                    color: AppTheme.goldPrimary.withValues(alpha: 0.3),
+                    color: AppTheme.goldPrimary.withOpacity( 0.3),
                     blurRadius: 20,
                     spreadRadius: 5,
                   ),
@@ -64,7 +64,7 @@ class AboutScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
               decoration: BoxDecoration(
-                color: AppTheme.goldColor.withValues(alpha: 0.2),
+                color: AppTheme.goldColor.withOpacity( 0.2),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: const Text(

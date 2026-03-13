@@ -89,7 +89,7 @@ class _DepositScreenState extends State<DepositScreen> {
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   BoxShadow(
-                    color: AppTheme.goldPrimary.withValues(alpha: 0.3),
+                    color: AppTheme.goldPrimary.withOpacity( 0.3),
                     blurRadius: 20,
                     offset: const Offset(0, 10),
                   ),
@@ -159,7 +159,7 @@ class _DepositScreenState extends State<DepositScreen> {
                       vertical: 8,
                     ),
                     decoration: BoxDecoration(
-                      color: AppTheme.goldColor.withValues(alpha: 0.2),
+                      color: AppTheme.goldColor.withOpacity( 0.2),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
@@ -208,7 +208,7 @@ class _DepositScreenState extends State<DepositScreen> {
                         width: 48,
                         height: 48,
                         decoration: BoxDecoration(
-                          color: (method['color'] as Color).withValues(alpha: 0.2),
+                          color: (method['color'] as Color).withOpacity( 0.2),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Icon(

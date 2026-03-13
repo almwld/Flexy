@@ -198,7 +198,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   _performSearch(search);
                 },
                 child: Chip(
-                  backgroundColor: AppTheme.goldColor.withValues(alpha: 0.2),
+                  backgroundColor: AppTheme.goldColor.withOpacity( 0.2),
                   label: Text(
                     search,
                     style: const TextStyle(color: AppTheme.goldColor),
@@ -250,7 +250,7 @@ class _SearchScreenState extends State<SearchScreen> {
             width: 50,
             height: 50,
             decoration: BoxDecoration(
-              color: AppTheme.goldColor.withValues(alpha: 0.2),
+              color: AppTheme.goldColor.withOpacity( 0.2),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Icon(icon, color: AppTheme.goldColor),
@@ -314,7 +314,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: AppTheme.goldColor.withValues(alpha: 0.2),
+                        color: AppTheme.goldColor.withOpacity( 0.2),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Text(
@@ -358,7 +358,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         vertical: 6,
                       ),
                       decoration: BoxDecoration(
-                        color: AppTheme.goldColor.withValues(alpha: 0.2),
+                        color: AppTheme.goldColor.withOpacity( 0.2),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Text(

@@ -135,7 +135,7 @@ class AppTheme {
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         hintStyle: TextStyle(
-          color: lightGrey.withValues(alpha: 0.5),
+          color: lightGrey.withOpacity( 0.5),
           fontFamily: 'Changa',
         ),
       ),
@@ -148,9 +148,9 @@ class AppTheme {
         }),
         trackColor: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
-            return goldColor.withValues(alpha: 0.5);
+            return goldColor.withOpacity( 0.5);
           }
-          return Colors.grey.withValues(alpha: 0.3);
+          return Colors.grey.withOpacity( 0.3);
         }),
       ),
       checkboxTheme: CheckboxThemeData(
@@ -175,11 +175,11 @@ class AppTheme {
         activeTrackColor: goldColor,
         inactiveTrackColor: grey,
         thumbColor: goldColor,
-        overlayColor: goldColor.withValues(alpha: 0.2),
+        overlayColor: goldColor.withOpacity( 0.2),
       ),
       chipTheme: ChipThemeData(
         backgroundColor: darkCard,
-        selectedColor: goldColor.withValues(alpha: 0.2),
+        selectedColor: goldColor.withOpacity( 0.2),
         labelStyle: const TextStyle(color: Colors.white),
         secondaryLabelStyle: const TextStyle(color: Colors.black),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -213,7 +213,7 @@ class AppTheme {
         ),
       ),
       dividerTheme: DividerThemeData(
-        color: grey.withValues(alpha: 0.5),
+        color: grey.withOpacity( 0.5),
         thickness: 1,
       ),
       textTheme: const TextTheme(
@@ -339,7 +339,7 @@ class AppTheme {
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         hintStyle: TextStyle(
-          color: Colors.grey.withValues(alpha: 0.7),
+          color: Colors.grey.withOpacity( 0.7),
           fontFamily: 'Changa',
         ),
       ),
@@ -352,9 +352,9 @@ class AppTheme {
         }),
         trackColor: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
-            return goldColor.withValues(alpha: 0.5);
+            return goldColor.withOpacity( 0.5);
           }
-          return Colors.grey.withValues(alpha: 0.3);
+          return Colors.grey.withOpacity( 0.3);
         }),
       ),
       checkboxTheme: CheckboxThemeData(
@@ -379,11 +379,11 @@ class AppTheme {
         activeTrackColor: goldColor,
         inactiveTrackColor: Colors.grey.shade300,
         thumbColor: goldColor,
-        overlayColor: goldColor.withValues(alpha: 0.2),
+        overlayColor: goldColor.withOpacity( 0.2),
       ),
       chipTheme: ChipThemeData(
         backgroundColor: Colors.grey.shade100,
-        selectedColor: goldColor.withValues(alpha: 0.2),
+        selectedColor: goldColor.withOpacity( 0.2),
         labelStyle: const TextStyle(color: Colors.black),
         secondaryLabelStyle: const TextStyle(color: Colors.black),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),

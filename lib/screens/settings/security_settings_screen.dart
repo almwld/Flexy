@@ -234,7 +234,7 @@ class _SecuritySettingsScreenState extends State<SecuritySettingsScreen> {
               margin: const EdgeInsets.only(right: 8),
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
               decoration: BoxDecoration(
-                color: AppTheme.goldColor.withValues(alpha: 0.2),
+                color: AppTheme.goldColor.withOpacity( 0.2),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: const Text(
@@ -308,8 +308,8 @@ class _SecuritySettingsScreenState extends State<SecuritySettingsScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
                 color: isSuccess
-                    ? AppTheme.success.withValues(alpha: 0.2)
-                    : AppTheme.error.withValues(alpha: 0.2),
+                    ? AppTheme.success.withOpacity( 0.2)
+                    : AppTheme.error.withOpacity( 0.2),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(

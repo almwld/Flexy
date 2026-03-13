@@ -296,7 +296,7 @@ class _AddAdScreenState extends State<AddAdScreen> {
               color: isDark ? AppTheme.darkCard : AppTheme.lightCard,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: AppTheme.goldColor.withValues(alpha: 0.5),
+                color: AppTheme.goldColor.withOpacity( 0.5),
                 style: BorderStyle.solid,
               ),
             ),
@@ -306,13 +306,13 @@ class _AddAdScreenState extends State<AddAdScreen> {
                 Icon(
                   Icons.add_photo_alternate,
                   size: 40,
-                  color: AppTheme.goldColor.withValues(alpha: 0.7),
+                  color: AppTheme.goldColor.withOpacity( 0.7),
                 ),
                 const SizedBox(height: 8),
                 Text(
                   'إضافة صورة',
                   style: TextStyle(
-                    color: AppTheme.goldColor.withValues(alpha: 0.7),
+                    color: AppTheme.goldColor.withOpacity( 0.7),
                     fontSize: 12,
                   ),
                 ),

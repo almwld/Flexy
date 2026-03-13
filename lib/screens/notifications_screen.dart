@@ -215,7 +215,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           border: Border.all(
             color: isRead
                 ? (isDark ? Colors.grey[800]! : Colors.grey[300]!)
-                : AppTheme.goldColor.withValues(alpha: 0.5),
+                : AppTheme.goldColor.withOpacity( 0.5),
           ),
         ),
         child: ListTile(
@@ -228,7 +228,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             width: 50,
             height: 50,
             decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.2),
+              color: color.withOpacity( 0.2),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Icon(
