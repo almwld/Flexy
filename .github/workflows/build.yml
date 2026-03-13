@@ -23,8 +23,21 @@ jobs:
           channel: 'stable'
           cache: true
       
-      - name: Clean project
-        run: flutter clean
+      - name: Create fresh Android project
+        run: |
+          # إنشاء مشروع مؤقت للحصول على ملفات Android نظيفة
+          mkdir -p /tmp/fresh_project
+          cd /tmp/fresh_project
+          flutter create --org com.flexyemen --project-name flexy_temp .
+          
+          # العودة للمشروع الأصلي ونسخ الملفات النظيفة
+          cd ${{ github.workspace }}
+          rm -rf android ios
+          cp -r /tmp/fresh_project/android .
+          cp -r /tmp/fresh_project/ios .
+          
+          # تنظيف الملفات المؤقتة
+          rm -rf /tmp/fresh_project
       
       - name: Get dependencies
         run: flutter pub get
