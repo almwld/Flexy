@@ -1,12 +1,48 @@
 workflows:
-  flexy-build:
-    name: Flexy Build
+  flexy-android:
+    name: Flexy Android Build
     instance_type: mac_mini_m1
     max_build_duration: 30
     environment:
       flutter: stable
+    cache:
+      cache_paths:
+        - $FLUTTER_ROOT/.pub-cache
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: main
+          include: true
+          source: true
     scripts:
+      - name: Create Flutter project structure
+        script: |
+          # إنشاء مشروع Flutter جديد في مجلد مؤقت للحصول على ملفات أصلية
+          mkdir -p /tmp/new_project
+          cd /tmp/new_project
+          flutter create --org com.flexyemen --project-name flexy_temp .
+          
+          # نسخ ملفات android النظيفة إلى المشروع الأصلي
+          cd $CM_BUILD_DIR
+          rm -rf android ios
+          cp -r /tmp/new_project/android .
+          cp -r /tmp/new_project/ios .
+          
+      - name: Get packages
+        script: |
+          flutter pub get
+          
       - name: Build APK
-        script: flutter build apk --release
+        script: |
+          flutter build apk --release
+          
     artifacts:
-      - build/app/outputs/flutter-apk/*.apk
+      - build/app/outputs/flutter-apk/app-release.apk
+    publishing:
+      email:
+        recipients:
+          - your-email@example.com
+        notify:
+          success: true
+          failure: true

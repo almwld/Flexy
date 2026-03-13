@@ -1,0 +1,18 @@
+# Flutter/Dart
+.dart_tool/
+build/
+*.log
+*.swp
+.*/
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# Android
+android/
+ios/
+*.iml
+.gradle/
+local.properties
+
+# Mac
+.DS_Store
