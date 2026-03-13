@@ -1,30 +1,28 @@
 import 'package:flutter/material.dart';
-import 'theme/app_theme.dart';
-import 'screens/splash_screen.dart';
 
-void main() {
-  runApp(const FlexYemenApp());
-}
+void main() => runApp(const FlexYemenApp());
 
-class FlexYemenApp extends StatefulWidget {
+class FlexYemenApp extends StatelessWidget {
   const FlexYemenApp({super.key});
-
-  @override
-  State<FlexYemenApp> createState() => _FlexYemenAppState();
-}
-
-class _FlexYemenAppState extends State<FlexYemenApp> {
-  bool isDarkMode = true;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flex Yemen',
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
-      themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
-      home: const SplashScreen(),
+      theme: ThemeData(primarySwatch: Colors.amber),
+      home: const HomeScreen(),
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Flex Yemen')),
+      body: const Center(child: Text('مرحباً بكم')),
     );
   }
 }

@@ -1,37 +1,12 @@
 workflows:
-  android-build:
-    name: Android Build
+  flexy-build:
+    name: Flexy Build
     instance_type: mac_mini_m1
     max_build_duration: 30
     environment:
       flutter: stable
-    cache:
-      cache_paths:
-        - $FLUTTER_ROOT/.pub-cache
-        - $HOME/.gradle/caches
-    triggering:
-      events:
-        - push
-      branch_patterns:
-        - pattern: main
-          include: true
-          source: true
     scripts:
-      - name: Get Flutter packages
-        script: |
-          flutter packages pub get
-      
       - name: Build APK
-        script: |
-          flutter build apk --release
-    
+        script: flutter build apk --release
     artifacts:
       - build/app/outputs/flutter-apk/*.apk
-    
-    publishing:
-      email:
-        recipients:
-          - your-email@example.com
-        notify:
-          success: true
-          failure: true
