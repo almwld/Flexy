@@ -1,8 +1,4 @@
-# FLEX YEMEN - Codemagic CI/CD Configuration
-# Simple initial build configuration
-
 workflows:
-  # Android Build Only
   android-build:
     name: Android Build
     instance_type: mac_mini_m1
@@ -25,21 +21,12 @@ workflows:
         script: |
           flutter packages pub get
       
-      - name: Flutter analyze
-        script: |
-          flutter analyze
-      
       - name: Build APK
         script: |
           flutter build apk --release
-      
-      - name: Build AppBundle
-        script: |
-          flutter build appbundle --release
     
     artifacts:
       - build/app/outputs/flutter-apk/*.apk
-      - build/app/outputs/bundle/release/*.aab
     
     publishing:
       email:
