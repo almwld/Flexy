@@ -6,33 +6,29 @@ class AppsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = Theme.of(context).brightness == Brightness.dark; // ✅ الآن داخل build
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('التطبيقات'),
-      ),
+      appBar: AppBar(title: const Text('التطبيقات')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildSectionTitle('بطاقات الريكي'),
-            _buildListItem('لريكي', Icons.card_giftcard),
-            _buildListItem('قنوات تنقلكس', Icons.taxi_alert),
+            _buildListItem('لريكي', Icons.card_giftcard, isDark),
+            _buildListItem('قنوات تنقلكس', Icons.taxi_alert, isDark),
             const SizedBox(height: 16),
-
             _buildSectionTitle('أدوبي'),
-            _buildListItem('NordVPN', Icons.vpn_lock),
-            _buildListItem('McAfee Antivirus VPN', Icons.security),
-            _buildListItem('كاسبر سكاي', Icons.shield),
+            _buildListItem('NordVPN', Icons.vpn_lock, isDark),
+            _buildListItem('McAfee Antivirus VPN', Icons.security, isDark),
+            _buildListItem('كاسبر سكاي', Icons.shield, isDark),
             const SizedBox(height: 16),
-
             _buildSectionTitle('تفعيلات'),
-            _buildListItem('تفعيل ويندوز', Icons.window),
-            _buildListItem('تفعيل الفوفيس', Icons.phonelink_setup),
-            _buildListItem('آتزنت دانولود مانجر', Icons.download),
-            _buildListItem('سيستون غو', Icons.android),
+            _buildListItem('تفعيل ويندوز', Icons.window, isDark),
+            _buildListItem('تفعيل الفوفيس', Icons.phonelink_setup, isDark),
+            _buildListItem('آتزنت دانولود مانجر', Icons.download, isDark),
+            _buildListItem('سيستون غو', Icons.android, isDark),
           ],
         ),
       ),
@@ -42,25 +38,14 @@ class AppsScreen extends StatelessWidget {
   Widget _buildSectionTitle(String title) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Text(
-        title,
-        style: const TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-          color: AppTheme.goldColor,
-        ),
-      ),
+      child: Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppTheme.goldColor)),
     );
   }
 
-  Widget _buildListItem(String title, IconData icon) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+  Widget _buildListItem(String title, IconData icon, bool isDark) {
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
-      decoration: BoxDecoration(
-        color: isDark ? AppTheme.darkCard : AppTheme.lightCard,
-        borderRadius: BorderRadius.circular(12),
-      ),
+      decoration: BoxDecoration(color: isDark ? AppTheme.darkCard : AppTheme.lightCard, borderRadius: BorderRadius.circular(12)),
       child: ListTile(
         leading: Icon(icon, color: AppTheme.goldColor),
         title: Text(title),
