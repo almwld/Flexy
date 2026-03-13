@@ -74,3 +74,15 @@ class ThemeManager extends ChangeNotifier {
     notifyListeners();
   }
 }
+
+// تعريف ThemeManager
+class ThemeManager extends ChangeNotifier {
+  bool _isDarkMode = true;
+  
+  bool get isDarkMode => _isDarkMode;
+  
+  void toggleTheme() {
+    _isDarkMode = !_isDarkMode;
+    notifyListeners();
+  }
+}
