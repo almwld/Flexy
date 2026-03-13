@@ -6,26 +6,40 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'theme/app_theme.dart';
 import 'screens/splash_screen.dart';
 
+// تعريف ThemeManager مرة واحدة فقط
+#import 'theme/theme_manager.dart'
+  bool _isDarkMode = true;
+  
+  bool get isDarkMode => _isDarkMode;
+  
+  void toggleTheme() {
+    _isDarkMode = !_isDarkMode;
+    notifyListeners();
+  }
+  
+  void setDarkMode(bool value) {
+    _isDarkMode = value;
+    notifyListeners();
+  }
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
-  // Set preferred orientations
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
   
-  // Set system UI overlay style
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light,
-      systemNavigationBarColor: AppTheme.darkBackground,
+      systemNavigationBarColor: Colors.black,
       systemNavigationBarIconBrightness: Brightness.light,
     ),
   );
   
-  // Initialize Supabase
   await Supabase.initialize(
     url: 'https://zizpohdxtemsmunnhlkm.supabase.co',
     anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InppcXBvaGR4dGVtc211bm5obGttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE3ODQzNDcsImV4cCI6MjA4NzM2MDM0N30.ABAg5YZSrrAtBTWATJ3eRTmo4BuZVyVlrMV1HZjRWs0',
@@ -53,36 +67,8 @@ class FlexYemenApp extends StatelessWidget {
           darkTheme: AppTheme.darkTheme,
           themeMode: themeManager.isDarkMode ? ThemeMode.dark : ThemeMode.light,
           home: const SplashScreen(),
-          builder: (context, child) {
-            // Add global animations
-            return child!;
-          },
         );
       },
     );
-  }
-}
-
-// تعريف ThemeManager (يجب إضافته إذا لم يكن موجوداً)
-class ThemeManager extends ChangeNotifier {
-  bool _isDarkMode = true;
-  
-  bool get isDarkMode => _isDarkMode;
-  
-  void toggleTheme() {
-    _isDarkMode = !_isDarkMode;
-    notifyListeners();
-  }
-}
-
-// تعريف ThemeManager
-class ThemeManager extends ChangeNotifier {
-  bool _isDarkMode = true;
-  
-  bool get isDarkMode => _isDarkMode;
-  
-  void toggleTheme() {
-    _isDarkMode = !_isDarkMode;
-    notifyListeners();
   }
 }

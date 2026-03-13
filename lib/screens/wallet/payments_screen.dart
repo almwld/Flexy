@@ -88,7 +88,7 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
-                  colors: [AppTheme.goldPrimary, AppTheme.goldDark],
+                  colors: [AppTheme.goldPrimary, AppTheme.goldPrimary],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),

@@ -83,7 +83,7 @@ class _TransferScreenState extends State<TransferScreen> {
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
-                  colors: [AppTheme.goldPrimary, AppTheme.goldDark],
+                  colors: [AppTheme.goldPrimary, AppTheme.goldPrimary],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),

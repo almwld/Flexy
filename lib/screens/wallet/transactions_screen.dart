@@ -126,7 +126,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               gradient: const LinearGradient(
-                colors: [AppTheme.goldPrimary, AppTheme.goldDark],
+                colors: [AppTheme.goldPrimary, AppTheme.goldPrimary],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
