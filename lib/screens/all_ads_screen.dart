@@ -17,7 +17,7 @@ class _AllAdsScreenState extends State<AllAdsScreen> {
   String _sortBy = 'الأحدث';
   RangeValues _priceRange = const RangeValues(0, 1000000);
 
-  // قوائم الفلاتر
+  // قوائم الفلاتر (يمكن أن تكون static أو خارج الكلاس)
   final List<String> _categories = [
     'الكل', 'سيارات', 'عقارات', 'إلكترونيات', 'أثاث', 'ملابس', 'مطاعم', 'خدمات', 'أخرى'
   ];
@@ -28,19 +28,25 @@ class _AllAdsScreenState extends State<AllAdsScreen> {
 
   final List<String> _sortOptions = ['الأحدث', 'الأقل سعراً', 'الأعلى سعراً', 'الأعلى تقييماً'];
 
-  // بيانات وهمية للإعلانات - تم إزالة const
-  final List<Map<String, dynamic>> _allAds = List.generate(20, (index) {
-    return {
-      'id': 'ad_$index',
-      'title': 'إعلان ${index + 1} - ${['سيارة', 'شقة', 'هاتف', 'لابتوب', 'أثاث'][index % 5]}',
-      'price': (5000 + index * 1000).toString(),
-      'location': _cities[(index % 8) + 1],
-      'category': _categories[(index % 7) + 1],
-      'image': 'https://images.unsplash.com/photo-${1500000000 + index}?w=400',
-      'timeAgo': 'منذ ${index + 1} ساعة',
-      'rating': (4 + (index % 5) / 10).toStringAsFixed(1),
-    };
-  });
+  // بيانات وهمية للإعلانات - نعلنها كـ late وننشئها في initState
+  late final List<Map<String, dynamic>> _allAds;
+
+  @override
+  void initState() {
+    super.initState();
+    _allAds = List.generate(20, (index) {
+      return {
+        'id': 'ad_$index',
+        'title': 'إعلان ${index + 1} - ${['سيارة', 'شقة', 'هاتف', 'لابتوب', 'أثاث'][index % 5]}',
+        'price': (5000 + index * 1000).toString(),
+        'location': _cities[(index % 8) + 1],
+        'category': _categories[(index % 7) + 1],
+        'image': 'https://images.unsplash.com/photo-${1500000000 + index}?w=400',
+        'timeAgo': 'منذ ${index + 1} ساعة',
+        'rating': (4 + (index % 5) / 10).toStringAsFixed(1),
+      };
+    });
+  }
 
   // الإعلانات المفلترة
   List<Map<String, dynamic>> get _filteredAds {
