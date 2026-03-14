@@ -28,7 +28,7 @@ class _AllAdsScreenState extends State<AllAdsScreen> {
 
   final List<String> _sortOptions = ['الأحدث', 'الأقل سعراً', 'الأعلى سعراً', 'الأعلى تقييماً'];
 
-  // بيانات وهمية للإعلانات
+  // بيانات وهمية للإعلانات - تم إزالة const
   final List<Map<String, dynamic>> _allAds = List.generate(20, (index) {
     return {
       'id': 'ad_$index',
