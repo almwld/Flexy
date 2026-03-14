@@ -1,53 +1,50 @@
 workflows:
-  flexy-full-build:
-    name: Flexy Full App Build
+  flexy-android:
+    name: Flexy Android Build
     instance_type: mac_mini_m1
     max_build_duration: 30
     environment:
       flutter: stable
-      groups:
-        - supabase_keys
     cache:
       cache_paths:
         - $FLUTTER_ROOT/.pub-cache
-        - $HOME/.gradle/caches
     triggering:
       events:
         - push
-        - pull_request
       branch_patterns:
         - pattern: main
           include: true
           source: true
-        - pattern: full-ui-build
-          include: true
-          source: true
     scripts:
-      - name: Clean project
+      - name: Create fresh Flutter project and copy sources
         script: |
+          # إنشاء مشروع Flutter جديد في مجلد مؤقت
+          mkdir -p /tmp/fresh_project
+          cd /tmp/fresh_project
+          flutter create --org com.flexyemen --project-name flexy_temp .
+          # نسخ ملفات المشروع الأصلي إلى المشروع الجديد
+          cp -r $CM_BUILD_DIR/lib /tmp/fresh_project/
+          cp -r $CM_BUILD_DIR/assets /tmp/fresh_project/ 2>/dev/null || true
+          cp $CM_BUILD_DIR/pubspec.yaml /tmp/fresh_project/
+          # استبدال المشروع الحالي بالمشروع الجديد
+          rm -rf $CM_BUILD_DIR/android $CM_BUILD_DIR/ios
+          cp -r /tmp/fresh_project/android $CM_BUILD_DIR/
+          cp -r /tmp/fresh_project/ios $CM_BUILD_DIR/ 2>/dev/null || true
+          cp /tmp/fresh_project/pubspec.yaml $CM_BUILD_DIR/
+          cd $CM_BUILD_DIR
           flutter clean
-      
-      - name: Get packages
-        script: |
           flutter pub get
-      
-      - name: Build Android APK
+
+      - name: Build APK
         script: |
-          flutter build apk --release --split-per-abi
-      
-      - name: Build Android AppBundle
-        script: |
-          flutter build appbundle --release
-    
+          flutter build apk --release
+
     artifacts:
-      - build/app/outputs/flutter-apk/*.apk
-      - build/app/outputs/bundle/release/*.aab
-      - flutter_drive.log
-    
+      - build/app/outputs/flutter-apk/app-release.apk
     publishing:
       email:
         recipients:
-          - your-email@example.com
+          - dev@flexyemen.com
         notify:
           success: true
           failure: true
