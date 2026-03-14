@@ -11,6 +11,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentSlide = 0;
+  int _selectedIndex = 0; // للشريط السفلي
 
   final List<Map<String, dynamic>> _slides = const [
     {'title': 'إعلانات حصرية للتجار', 'subtitle': 'احصل على أفضل العروض التجارية', 'color': Colors.purple, 'icon': Icons.business},
@@ -79,6 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
+          // الشريط العلوي (AppBar)
           SliverAppBar(
             floating: true,
             snap: true,
@@ -90,6 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: AppTheme.goldColor,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 2,
+                    fontFamily: 'Changa',
                   ),
                 ),
                 const SizedBox(width: 4),
@@ -98,6 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: TextStyle(
                     fontSize: 14,
                     color: AppTheme.goldLight,
+                    fontFamily: 'Changa',
                   ),
                 ),
                 const Spacer(),
@@ -112,6 +116,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
+
+          // السلايدر
           SliverToBoxAdapter(
             child: Column(
               children: [
@@ -142,11 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Positioned(
                             right: -10,
                             bottom: -10,
-                            child: Icon(
-                              slide['icon'],
-                              size: 80,
-                              color: Colors.white.withOpacity(0.2),
-                            ),
+                            child: Icon(slide['icon'], size: 80, color: Colors.white.withOpacity(0.2)),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(16),
@@ -154,24 +156,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
-                                  slide['title'],
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  textAlign: TextAlign.right,
-                                ),
+                                Text(slide['title'], style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold, fontFamily: 'Changa'), textAlign: TextAlign.right),
                                 const SizedBox(height: 4),
-                                Text(
-                                  slide['subtitle'],
-                                  style: const TextStyle(
-                                    color: Colors.white70,
-                                    fontSize: 12,
-                                  ),
-                                  textAlign: TextAlign.right,
-                                ),
+                                Text(slide['subtitle'], style: const TextStyle(color: Colors.white70, fontSize: 12, fontFamily: 'Changa'), textAlign: TextAlign.right),
                               ],
                             ),
                           ),
@@ -183,34 +170,29 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(height: 8),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(_slides.length, (i) {
-                    return Container(
-                      width: 8,
-                      height: 8,
-                      margin: const EdgeInsets.symmetric(horizontal: 3),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: _currentSlide == i
-                            ? AppTheme.goldColor
-                            : (isDark ? Colors.grey[700] : Colors.grey[300]),
-                      ),
-                    );
-                  }),
+                  children: List.generate(_slides.length, (i) => Container(
+                    width: 8,
+                    height: 8,
+                    margin: const EdgeInsets.symmetric(horizontal: 3),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: _currentSlide == i ? AppTheme.goldColor : (isDark ? Colors.grey[700] : Colors.grey[300]),
+                    ),
+                  )),
                 ),
               ],
             ),
           ),
+
+          // قسم "مزيد من ما تريد"
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
               child: Row(
                 children: [
-                  const Text(
-                    'مزيد من ما تريد',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
+                  const Text('مزيد من ما تريد', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Changa')),
                   const Spacer(),
-                  TextButton(onPressed: () {}, child: const Text('المزيد')),
+                  TextButton(onPressed: () {}, child: const Text('المزيد', style: TextStyle(fontFamily: 'Changa'))),
                 ],
               ),
             ),
@@ -236,18 +218,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           decoration: BoxDecoration(
                             color: isDark ? AppTheme.darkCard : AppTheme.lightCard,
                             borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color: isDark ? Colors.grey[800]! : Colors.grey[300]!,
-                            ),
+                            border: Border.all(color: isDark ? Colors.grey[800]! : Colors.grey[300]!),
                           ),
                           child: Icon(item['icon'], color: AppTheme.goldColor),
                         ),
                         const SizedBox(height: 4),
-                        Text(
-                          item['name'],
-                          style: const TextStyle(fontSize: 11),
-                          textAlign: TextAlign.center,
-                        ),
+                        Text(item['name'], style: const TextStyle(fontSize: 11, fontFamily: 'Changa'), textAlign: TextAlign.center),
                       ],
                     ),
                   );
@@ -255,13 +231,12 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
+
+          // قسم "مزاد الجنابي الأسبوعي"
           const SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Text(
-                'مزاد الجنابي الأسبوعي',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
+              child: Text('مزاد الجنابي الأسبوعي', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Changa')),
             ),
           ),
           SliverPadding(
@@ -279,17 +254,16 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
+
+          // قسم "العقارات والاستثمارات"
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
               child: Row(
                 children: [
-                  const Text(
-                    'العقارات والاستثمارات',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
+                  const Text('العقارات والاستثمارات', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Changa')),
                   const Spacer(),
-                  TextButton(onPressed: () {}, child: const Text('المزيد')),
+                  TextButton(onPressed: () {}, child: const Text('المزيد', style: TextStyle(fontFamily: 'Changa'))),
                 ],
               ),
             ),
@@ -319,13 +293,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Icon(prop['icon'], color: Colors.blue),
                         ),
                         const SizedBox(height: 8),
-                        Text(
-                          prop['name'],
-                          style: const TextStyle(fontSize: 11),
-                          textAlign: TextAlign.center,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                        Text(prop['name'], style: const TextStyle(fontSize: 11, fontFamily: 'Changa'), textAlign: TextAlign.center, maxLines: 2, overflow: TextOverflow.ellipsis),
                       ],
                     ),
                   );
@@ -333,17 +301,16 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
+
+          // قسم "عالم الإلكترونيات والتقنية"
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
               child: Row(
                 children: [
-                  const Text(
-                    'عالم الإلكترونيات والتقنية',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
+                  const Text('عالم الإلكترونيات والتقنية', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Changa')),
                   const Spacer(),
-                  TextButton(onPressed: () {}, child: const Text('المزيد')),
+                  TextButton(onPressed: () {}, child: const Text('المزيد', style: TextStyle(fontFamily: 'Changa'))),
                 ],
               ),
             ),
@@ -373,12 +340,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Icon(item['icon'], color: Colors.purple),
                         ),
                         const SizedBox(height: 6),
-                        Text(
-                          item['name'],
-                          style: const TextStyle(fontSize: 10),
-                          textAlign: TextAlign.center,
-                          maxLines: 2,
-                        ),
+                        Text(item['name'], style: const TextStyle(fontSize: 10, fontFamily: 'Changa'), textAlign: TextAlign.center, maxLines: 2),
                       ],
                     ),
                   );
@@ -386,8 +348,74 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          const SliverToBoxAdapter(child: SizedBox(height: 20)), // مسافة بسيطة
+          const SliverToBoxAdapter(child: SizedBox(height: 80)), // مساحة للشريط السفلي
         ],
+      ),
+      // الشريط السفلي المخصص بـ 6 أزرار + زر مركزي
+      bottomNavigationBar: Container(
+        height: 70,
+        decoration: BoxDecoration(
+          color: isDark ? AppTheme.darkSurface : AppTheme.lightSurface,
+          boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10, offset: const Offset(0, -2))],
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _buildNavItem(Icons.person_outline, 'حسابي', 0),
+            _buildNavItem(Icons.shopping_bag_outlined, 'المنتج', 1),
+            _buildNavItem(Icons.map_outlined, 'الخرائط', 2),
+            _buildCenterButton(),
+            _buildNavItem(Icons.home, 'الرئيسية', 3),
+            _buildNavItem(Icons.account_balance_wallet, 'المحفظة', 4),
+            _buildNavItem(Icons.add_circle_outline, 'إضافة', 5),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNavItem(IconData icon, String label, int index) {
+    final isSelected = _selectedIndex == index;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return GestureDetector(
+      onTap: () => setState(() => _selectedIndex = index),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, color: isSelected ? AppTheme.goldColor : (isDark ? Colors.grey[400] : Colors.grey[600])),
+          const SizedBox(height: 2),
+          Text(
+            label,
+            style: TextStyle(
+              color: isSelected ? AppTheme.goldColor : (isDark ? Colors.grey[400] : Colors.grey[600]),
+              fontSize: 11,
+              fontFamily: 'Changa',
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCenterButton() {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return GestureDetector(
+      onTap: () => setState(() => _selectedIndex = -1), // أو أي إجراء آخر
+      child: Container(
+        width: 60,
+        height: 60,
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [AppTheme.goldColor, AppTheme.goldLight],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          shape: BoxShape.circle,
+          boxShadow: [BoxShadow(color: AppTheme.goldColor.withOpacity(0.4), blurRadius: 10)],
+        ),
+        child: const Icon(Icons.add, color: Colors.black, size: 30),
       ),
     );
   }
@@ -397,9 +425,7 @@ class _HomeScreenState extends State<HomeScreen> {
       decoration: BoxDecoration(
         color: isDark ? AppTheme.darkCard : AppTheme.lightCard,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: AppTheme.goldColor.withOpacity(0.3),
-        ),
+        border: Border.all(color: AppTheme.goldColor.withOpacity(0.3)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -411,28 +437,19 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Stack(
                 fit: StackFit.expand,
                 children: [
-                  Image.network(
-                    car['image'],
-                    fit: BoxFit.cover,
-                  ),
+                  Image.network(car['image'], fit: BoxFit.cover),
                   Positioned(
                     top: 8,
                     right: 8,
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: Colors.red.withOpacity(0.9),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
+                      decoration: BoxDecoration(color: Colors.red.withOpacity(0.9), borderRadius: BorderRadius.circular(8)),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           const Icon(Icons.timer, color: Colors.white, size: 12),
                           const SizedBox(width: 4),
-                          Text(
-                            car['time'],
-                            style: const TextStyle(color: Colors.white, fontSize: 10),
-                          ),
+                          Text(car['time'], style: const TextStyle(color: Colors.white, fontSize: 10, fontFamily: 'Changa')),
                         ],
                       ),
                     ),
@@ -448,29 +465,14 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    car['title'],
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                  Text(car['title'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12, fontFamily: 'Changa'), maxLines: 1, overflow: TextOverflow.ellipsis),
                   const Spacer(),
                   Row(
                     children: [
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: AppTheme.goldColor.withOpacity(0.2),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Text(
-                          '${car['price']} ر.ي',
-                          style: const TextStyle(
-                            color: AppTheme.goldColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10,
-                          ),
-                        ),
+                        decoration: BoxDecoration(color: AppTheme.goldColor.withOpacity(0.2), borderRadius: BorderRadius.circular(8)),
+                        child: Text('${car['price']} ر.ي', style: const TextStyle(color: AppTheme.goldColor, fontWeight: FontWeight.bold, fontSize: 10, fontFamily: 'Changa')),
                       ),
                       const Spacer(),
                       const Icon(Icons.favorite_border, size: 16, color: Colors.grey),
