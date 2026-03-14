@@ -11,7 +11,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentSlide = 0;
-  final carousel.CarouselSliderController _carouselController = carousel.CarouselSliderController();
+  // استخدام CarouselController من المكتبة مع alias لتجنب التضارب
+  final carousel.CarouselController _carouselController = carousel.CarouselController();
 
   final List<Map<String, dynamic>> _slides = const [
     {'title': 'إعلانات حصرية للتجار', 'subtitle': 'احصل على أفضل العروض التجارية', 'color': Colors.purple, 'icon': Icons.business},
